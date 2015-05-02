@@ -3,12 +3,6 @@
 /**
  * Main module of the application.
  */
-/*
-angular.module('ookamiWebApp').config(['$routeProvider', function($routeProvider) {
-  $routeProvider
-    .when('/news/', {controller: 'NewsDetailCtrl', templateUrl: 'news-detail.html'})
-}]);
-*/
 angular.module('ookamiWebApp', [])
 	.config(["$locationProvider", function($locationProvider) {
 		$locationProvider.html5Mode({
@@ -16,7 +10,9 @@ angular.module('ookamiWebApp', [])
 			requireBase: false
 		});
 	}])
-	.controller('NewsDetailCtrl', function($scope, $location, $http){
-		NewsDetailCtrl($scope, $location, $http);
+	.controller('NewsDetailCtrl', function($scope, $location, $http, $sce){
+		NewsDetailCtrl($scope, $location, $http, $sce);
+	})
+	.controller('IndexCtrl', function(){
+		IndexCtrl();
 	});
-

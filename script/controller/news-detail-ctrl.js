@@ -2,7 +2,7 @@
  * # NewsDetail 
  * Controller of the ookamiWebApp
  */
-var NewsDetailCtrl = function($scope, $location, $http) {
+var NewsDetailCtrl = function($scope, $location, $http, $sce) {
 	var newsId = $location.search()["news_id"]
 	if (newsId === undefined) {
 //		location.href="/";
