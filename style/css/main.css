@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/***** 基本 *****/
+/* 変数 */
+/* mixin */
+/* ネスト */
+body {
+  margin: 0 auto;
+  width: 1000px;
+}
+body header h1 {
+  /* mixinを使う */
+  font-family: "lucida grande", "lucida sans", sans-serif;
+  font-size: 300%;
+  font-weight: bold;
+  /* 変数を使う*/
+  border-bottom: 1px dotted #333;
+}
+body div {
+  margin: 0 0 20px;
+}
+body footer {
+  border-top: 1px solid #888;
+}
+body footer address {
+  font-size: 90%;
+}

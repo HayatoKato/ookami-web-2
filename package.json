@@ -1,0 +1,14 @@
+{
+  "name": "ookami-web",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gulpfile.js",
+  "author": "Hayato Kato",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-compass": "^2.0.4",
+    "gulp-livereload": "^3.8.0",
+    "gulp-watch": "^4.2.4"
+  }
+}
