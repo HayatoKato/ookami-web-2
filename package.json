@@ -1,10 +1,14 @@
 {
   "name": "ookami-web",
   "version": "0.0.1",
-  "description": "",
+  "description": "ookami-web",
   "main": "gulpfile.js",
   "author": "Hayato Kato",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcofranssen/NodeJsPackageExample.gi://github.com/HayatoKato/ookami-web-2.git"
+  },
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-compass": "^2.0.4",

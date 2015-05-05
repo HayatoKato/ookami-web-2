@@ -33,3 +33,4 @@ var NewsDetailCtrl = function($scope, $location, $http, $sce) {
 	});
 
 }
+

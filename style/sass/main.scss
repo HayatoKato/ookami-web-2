@@ -1,41 +1,1391 @@
-/***** 基本 *****/
-/* 変数 */
-$black: #333;
-$gray: #888;
+/*
+	                                                          `.--:///-`    +mNm
+                                             .::. /osyyhddmN` /MMMNNNMMN+   /MMm
+                            `/+o   `ydd:    .NMm` dMMmhysso+  /MMh.``-NMM-  :MMh
+```..--.`   oss`            sMMM:   /MMm.   dMM:  dMM/        /MMy    hMM:  -MMy
+mNNNNNMMmo` NMM.           `NMMMh    oMMh` oMMs   dMM/        /MMy    hMM:  `MMo
+NMM/:-:hMMo NMM.           +MMMMM.   `hMMs-NMm`   dMM/        /MMy``.:NMN.   NM+
+NMM`   /MMh NMM.          `mMNyMMs    `mMMmMN:    dMMo-://+   /MMNmmNMNd:    mM:
+NMM`   /MMh NMM.          /MMy.NMN`    -NMMMo     dMMMNNNmd   /MMdooMMd`     hM-
+NMN` `.yMMo NMM.          dMM- yMM+     +MMM`     dMMo--..`   /MMy  yMM/     yM`
+NMMhddmNmo` NMM.         -MMh  -MMm     /MMM      dMM/        /MMy  .mMN.    oN
+NMMhso/-`   NMM.         yMM:   dMM:    /MMM      dMM/        /MMy   /MMy    -/
+NMM`        NMM.        .NMN+oosdMMh    /MMM      dMM/        /MMy    hMM/   -+`
+NMM`        NMM.        sMMNNmddhNMM.   /MMM      dMMo--:://  /MMy    -NMm` .mNo
+NMM`        NMM.       `NMN.`````oMMs   /MMM      dMMNNNNNNN` :hh+     :/:` ````
+NMM`        NMM:-://++ +MMo      .NMN`  :mdh      /+/:--..``
+NMM`        NMMMMMMNNs yhy.       --.
+NNm`        //:-..``
 
-/* mixin */
-@mixin logofont {
-  font: {
-    family: "lucida grande", "lucida sans", sans-serif;
-    size:   300%;
-    weight: bold;
+
+Designer and Front-End Developer: Riomar Mccartney
+Backend Magicians: Hayato Kato | Fumiya Nakamura
+
+All rights reserved - ookami 2015
+*/
+/* Measure based on heights */
+$Header: 46px;
+$HeaderLogo: 25px;
+$HeaderBack: 18px;
+$ThumbSize: 200px;
+
+$SidebarWidth: 300px;
+$Border: 10px;
+
+$shortAnim: 0.25s;
+$medieumAnim: 0.4s;
+$GradientAnim: 40s;
+
+$Avenir: "Avenir Next", Avenir, Quicksand, sans-serif;
+$Helvetica: Helvetica, Arial, sans-serif;
+$MetadataBlue: #448dfb;
+
+/* Resetting the browser default styling */
+@import 'reset';
+/* SASS Mxins and partials */
+@import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
+/* Google Fonts */
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
+
+html {
+	width: 100%;
+	height: 100%;
+	body {
+		width: 100%;
+		height: 100%;
+	}
+}
+*{
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none;
+}
+/* WebLP CSS */
+.DesktopDevice {
+  div.ng-scope {
+  		height: 100%;
+  		width: 100%;
+  }
+  .WebLP {
+  	width: 100%;
+  	height: 100%;
+  	@include display(flex);
+  	//overflow: hidden;
+  }
+  .LPComponent {
+  	width: $SidebarWidth;
+  	height: 100%;
+  	@include display(flex);
+  	@include flex(none);
+  	@include flex-direction(column);
+  	@include transition($medieumAnim);
+  	background: white;
+  	position: relative;
+  	box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+  	z-index:2;
+  	overflow: hidden;
+  	//When scrolled
+  	//Fixed
+  	.LPHeader {
+  		width: inherit;
+  		height: $Header;
+  		@include background-image( linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%));
+  		//@include transition($medieumAnim);
+  		//background-image: -webkit-linear-gradient();
+  		position: fixed;
+  		z-index: 1000;
+  		padding: 0px $Border;
+  		.HeaderLogo {
+  			float: left;
+  			svg {
+  				height: $HeaderLogo;
+  				margin-top: ($Header - $HeaderLogo)/2;
+  				path {
+  					fill: white;
+  					@include transition($shortAnim);
+  				}
+  			}
+  		}
+  		.Close {
+  			float: right;
+  			cursor: pointer;
+  			padding-left: 10px;
+  			svg {
+  				height: $HeaderBack;
+  				margin-top: ($Header - $HeaderBack)/2 - 1;
+  				path {
+  					fill: white;
+  					@include transition($shortAnim);
+  				}
+  			}
+  		}
+
+  	}
+  	//Fix End
+  	//Flex
+  	.LPContent {
+  		@include flex(1.5);
+  		@include display(flex);
+  		@include flex-direction(column);
+  		min-height: 250px;
+  		max-height: 300px;
+  		opacity: 1;
+  		//height: 300px;
+  		width: 100%;
+  		z-index: 2;
+  		position: relative;
+  		padding: 0px $Border $Border $Border;
+  		background: white;
+  		box-shadow: 0px 1px 10px rgba(0, 0, 0, 0);
+  		@include transition($medieumAnim);
+  		overflow: hidden;
+  		.ThumbnailWrap {
+  			@include display(flex);
+  			@include transition($medieumAnim);
+  			@include flex(initial);
+  			@include align-items(center);
+  			min-height: 120px;
+  			height: 180px;
+  			width: 120%;
+  			margin-left: -10%;
+  			margin-top: -20px;
+  			@include transform( rotate(6deg));
+  			-webkit-backface-visibility: hidden;
+  			overflow: hidden;
+  			box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+  			z-index: 2;
+  				.ThumbnailInner {
+  				height: 120%;
+  				width: 120%;
+  				margin: 0 auto;
+  				background-size: 110%;
+  				background-position: center 20px;
+  				background-repeat: no-repeat;
+  				@include transform( rotate(-6deg));
+  				-webkit-backface-visibility: hidden;
+  			}
+  		}
+  		.PressIcon {
+  			width: 45px;
+  			height: 45px;
+  			@include flex(none);
+  			//background: black;
+  			border-radius: 3px;
+  			margin-top: -40px;
+  			overflow: hidden;
+  			box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  			z-index: 3;
+  			position: relative;
+  			@include transition($medieumAnim);
+  			.Icon {
+  				width: 100%;
+  				height: 100%;
+  				background-repeat: no-repeat;
+  				background-size: cover;
+  				display: none;
+  				&:first-child{
+    				display: block;
+  				}
+
+  			}
+  		}
+  		.PressName {
+  			@include flex(none);
+  			font-family: $Avenir;
+  			font-weight: 400;
+  			font-size: 14px;
+  			color: rgba(0, 0, 0, 0.5);
+  			line-height: 25px;
+  			margin-top: 5px;
+  			text-transform: uppercase;
+  			color: rgba(0, 0, 0, 0.4);
+  		}
+  		.ArticleTitle {
+  			@include flex(none);
+  			font-family: "Helvetica";
+  			font-weight: 700;
+  			font-size: 17px;
+  			color: rgba(0, 0, 0, 0.9);
+  			margin-top: 5px;
+  			line-height: 23px;
+  			min-height: 47px;
+  			overflow: hidden
+
+  		}
+  		.ArticleMetadata {
+  			@include flex(none);
+  			height: 16px;
+  			font-family: $Avenir;
+  			font-size: 12px;
+  			margin-top: 10px;
+  			//line-height: 30px;
+  			color: $MetadataBlue;
+  			position: relative;
+  			.CategoryClass {
+  				text-align: right;
+  				text-transform: uppercase;
+  				font-weight: 500;
+  			}
+  			.ArticleDate {
+  				text-align: left;
+  				float: left;
+  			}
+  		}
+  	}
+  	.LPSocial {
+  		position: relative;
+  		width: inherit;
+  		padding: 0 $Border $Border $Border;
+  		@include flex(1);
+  		opacity: 1;
+  		//@include transition($medieumAnim);
+  		@include display(flex);
+  		@include flex-direction(column);
+  		overflow: hidden;
+  			.Share {
+  				@include flex(none);
+  				@include display(flex);
+  				@include flex-direction(row);
+  				height: 30px;
+  				width: 100%;
+  			}
+  			.button {
+  				border-radius:50px;
+  				svg path{
+  					fill: white;
+  				}
+  			}
+  			.Pick {
+  				padding: 0px 5px;
+  				vertical-align:top;
+  				background: #37adff;
+  				@include display(flex);
+  				@include flex-direction(row);
+  				@include flex(1);
+  				cursor: pointer;
+  				.PickText {
+  					@include flex(1);
+  					text-align: center;
+  					display: inline-block;
+  					vertical-align: top;
+  					font-size: 14px;
+  					svg {
+  						display: inline-block;
+  						height: 15px;
+  						margin-top: 7px;
+  						margin-right: 6px;
+  						vertical-align:top;
+  						path {
+  							fill: white;
+  						}
+  					}
+  					span {
+  						display: inline-block;
+  						vertical-align:top;
+  						color: white;
+  						font-family: $Avenir;
+  						font-weight: 600;
+  						line-height: 30px;
+
+
+  					}
+  				}
+  				.PickCount {
+  					@include flex(none);
+  					height: 20px;
+  					margin: 5px 0px;
+  					background: white;
+  					border-radius: 100px;
+  					font-size: 13px;
+  					span {
+  						font-family: $Avenir;
+  						text-align: center;
+  						font-weight: 600;
+  						line-height: 21px;
+  						color: #37adff;
+  						min-width: 25px;
+  						padding: 0 5px;
+  						display: block;
+  					}
+  				}
+  			}
+  			.Other {
+  				width: 30px;
+  				margin-left: 10px;
+  				@include display(flex);
+  				@include flex(none);
+  				@include align-items(center);
+  				@include justify-content(center);
+  			}
+  			.FacebookShare {
+  				background: #3b5998;
+  				svg {
+  					height: 18px;
+  				}
+  			}
+  			.TwitterShare {
+  				background: #00aced;
+  				svg {
+  					height: 14px;
+  				}
+  			}
+
+  		.PickHeads {
+  			@include flex(none);
+  			margin-top: 15px;
+  			overflow: hidden;
+  			margin-bottom: -16px;
+  			width: 100%;
+
+  			.FixedElement {
+  				position: relative;
+  			}
+  			.ScrollGraduation {
+  				position: absolute;
+  				width: 100%;
+  				.Visible {
+  					opacity: 1 !important;
+  				}
+  				div {
+  					height: 30px;
+  					width: 30px;
+  					@include transition($shortAnim);
+
+  				}
+  				.left {
+  					@include background-image(linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%));
+  					position: absolute;
+  					left: 0;
+  					opacity: 0;
+
+  				}
+  				.right {
+  					@include background-image(linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%));
+  					position: absolute;
+  					right: 0;
+  					opacity: 1;
+  				}
+  			}
+  			.Headinglist{
+  				width: 5000px;
+  				height: 30px;
+  			}
+  			.Pickers{
+  				display: inline-block;
+  				float: left;
+  				height: 30px;
+  				width: 30px;
+  				float: left;
+  				background-size: cover;
+  				border-radius: 100%;
+  				//float: left;
+  				margin-right: 8px;
+  				&:last-child {
+  					margin-right: 0px !important;
+  				}
+  				&:first-child {
+    			  display: none;
+          }
+  			}
+  		}
+  		.PickHeads::-webkit-scrollbar {
+  			width: 0 !important;
+  		}
+  		.CommentThread {
+  			margin-top: 30px;
+  			//margin-bottom: 40px;
+  			width: 100%;
+  			.Comment {
+  				display: inline-block;
+  				width: inherit;
+  				min-height: 40px;
+  				height: auto;
+  				position: relative;
+  				margin-bottom: 5px;
+  				&:first-child {
+    			  display: none;
+          }
+  				.Picture{
+  					display: inline-block;
+  					width: 35px;
+  					height: 35px;
+  					background-position:left top;
+  					background-size: 100%;
+  					border-radius: 100%;
+  					vertical-align: top;
+  					float: left;
+  					position: absolute;
+  				}
+  				.TextContent {
+  					display: inline-block;
+  					vertical-align: top;
+  					height: inherit;
+  					margin-left: 45px;
+  					float: right;
+  					//position: absolute;
+  					.NameTitle {
+  						font-family: $Avenir;
+  						font-weight: 600;
+  						font-size: 14px;
+  						color: #004b7f;
+  						line-height: 15px;
+  						float: left;
+  					}
+  					.CommentDate {
+  						font-family: $Avenir;
+  						font-weight: 500;
+  						font-size: 14px;
+  						color: #848484;
+  						line-height: 15px;
+  						right: 0;
+  						position: absolute;
+  					}
+  					.CommentContent{
+  						font-family: $Helvetica;
+  						font-size: 14px;
+  						float: left;
+  						margin-top: 2px;
+
+  					}
+  				}
+  			}
+  		}
+  	}
+  	.LandingPage {
+  		@include flex(1.5);
+  		width: 100%;
+  		opacity: 1;
+  		position: relative;
+  		background: white;
+  		@include transition($medieumAnim);
+  		@include transition(0.5s);
+  		cursor:pointer;
+  		.LandingPageWrap {
+  			width: 100%;
+  			height: 100%;
+  			position: absolute;
+  			@include display(flex);
+  			@include flex-direction(column);
+  			@include align-items(center);
+  			@include justify-content(center);
+  			z-index: 3;
+  			.Logo {
+  				@include display(flex);
+  				@include flex(initial);
+  				@include align-items(center);
+  				@include justify-content(center);
+  				height: 75px;
+  				min-height: 50px;
+  				width: 100%;
+  				@include animation(FromTop 0.5s);
+  				svg {
+  					width: 45%;
+  					//height: 100%;
+  				}
+  			}
+  			.TextLine {
+  				@include flex(initial);
+  				height: 80px;
+  				min-height: 50px;
+  				@include animation-fill-mode(forwards);
+  				@include animation(FromBottom 0.5s);
+  				//@include animation-delay(1s);
+  				h1 {
+  					text-align: center;
+  					font-size: 16px;
+  					font-family: $Avenir;
+  					font-weight: 500;
+  				}
+  				h3 {
+  					text-align: center;
+  					font-size: 17px;
+  					font-family: $Avenir;
+  					font-weight: 600;
+  					line-height: 15px;
+  					color: $MetadataBlue;
+
+  				}
+  				P {
+  					text-align: center;
+  					font-size: 14px;
+  					font-family: $Avenir;
+  					font-weight: 500;opacity: 0;
+  					@include transition(0.5s);
+  					//padding: 0px 10px;
+  				}
+  			}
+  			.DownloadLink {
+  				width: 100%;
+  				@include transform(scale(0.5));
+  				@include transition(0.1s);
+  				&:hover {
+  					@include transform(scale(0.55));
+  				}
+
+  			}
+  			.iPhone {
+  				@include flex(2);
+  				width: 100%;
+  				height: 409px;
+  				opacity: 0;
+  				@include animation(FromBottom 0.5s);
+  				//@include animation-delay(0.75s);
+  				@include animation-fill-mode(forwards);
+  				@include display(flex);
+  				@include flex-direction(column);
+  				.iPhoneWrap {
+  					width: 200px;
+  					left: 50%;
+  					margin-left: -100px;
+  					height: auto;
+  					position: absolute;
+  					img {
+  						width: 100%;
+  						//eight: inherit;
+  						position: absolute;
+  					}
+  					.screens {
+  						width: 200px;
+  						height: 409px;
+  						@include transform(scale(1));
+  						position: absolute;
+  						@include display(flex);
+  						@include align-items(center);
+  						.background{
+  							z-index: 2;
+  						}
+  						.timeline {
+  							@include transform(scale(0));
+  							@include animation(FromCenter 0.5s);
+  							@include animation-delay(2s);
+  							@include animation-fill-mode(forwards);
+  							z-index: 3;
+  						}
+  						.article {
+  							opacity: 0;
+  							z-index: 4;
+  						}
+  						.category {
+  							opacity: 0;
+  							z-index: 5;
+  						}
+  						.ranking {
+  							opacity: 0;
+  							z-index: 6;
+  						}
+  					}
+  				}
+  			}
+  		}
+  		.Background {
+  			position: absolute;
+  			width: 100%;
+  			height: 100%;
+  			display: block;
+  			.gradient, .image{
+  				position: absolute;
+  				width: 100%;
+  				height: 100%;
+  				display: block;
+  				div {
+  					width: 100%;
+  					height: 100%;
+  					position: absolute;
+  					display: block;
+  				}
+  			}
+  			.gradient {
+  				z-index: 2;
+  				.one {
+  					@include background-image(linear-gradient(RGBA(255,255,255,1) 0%, RGBA(205, 155, 223, 0.8) 80%));
+  					opacity: 0;
+  					@include animation(GradientOne $GradientAnim ease infinite);
+  					}
+  				.two {
+  					@include background-image(linear-gradient(RGBA(255,255,255,1) 0%, RGBA(223, 108, 109, 0.8) 80%));
+  					@include animation(GradientTwo $GradientAnim ease infinite);
+
+  					opacity: 0;}
+  				.three {
+  					@include background-image(linear-gradient(RGBA(255,255,255,1) 0%, RGBA(144, 222, 106, 0.8) 80%));
+  					@include animation(GradientThree $GradientAnim ease infinite);
+
+  					opacity: 0;}
+  				.four {
+  					@include background-image(linear-gradient(RGBA(255,255,255,1) 0%, RGBA(83, 189, 108, 0.8) 80%));
+  					@include animation(GradientFour $GradientAnim ease infinite);
+
+  					opacity: 0}
+  			}
+  			.image {
+  				.overlay {
+  					@include background-image(linear-gradient(RGBA(255,255,255,1) 0%, RGBA(255,255,255,0) 100%));				z-index: 2;
+  				}
+  				.one {
+  					width: 120%;
+  					background-size: cover;
+  					opacity: 0;
+  					z-index: 1;
+  					background-position: center center;
+  					background-image: url(/images/Picture1.jpg);
+  					@include animation(ImageTransition 20s ease-in-out infinite);
+  				}
+  				.two {
+  					width: 120%;
+  					opacity: 0;
+  					background-size: cover;
+  					z-index: 1;
+  					background-position: center center;
+  					background-image: url(/images/Picture2.jpg);
+  					@include animation(ImageTransition 20s ease-in-out infinite);
+  					@include animation-delay(10s);
+  				}
+  			}
+  		}
+  		.HideGradient {
+  			display: block;
+  			position: absolute;
+  			top: -150px;
+  			width: 100%;
+  			height: 150px;
+  			@include background-image(linear-gradient(rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%));
+  		}
+  	}
+  	//End Flex
+
+  	//On LandingPage Hover
+  	&.BigLP {
+  		.LPHeader {
+  			@include background-image( linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.0) 100%));
+  			svg path {
+  				fill: black;
+  			}
+  		}
+  		.LPContent, .LPSocial{
+  			@include flex(0);
+  			height: 0;
+  			min-height: 0;
+  			overflow: hidden;
+  			padding-top: 0;
+  			padding-bottom: 0;
+  			opacity: 0;
+  			@include transition(0.5s);
+  		}
+  		.LandingPage {
+  			cursor: default;
+  			.LandingPageInner {
+  				.Logo {
+  					@include flex(1);
+  					height: 100px;
+  					@include transition(0.5s);
+  				}
+  				.TextLine {
+  					@include flex(2);
+  					min-height: 120px;
+  					@include transition(0.5s);
+  				}
+  				.iPhone {
+  					@include flex(2);
+  					height: 343px;
+  					@include transition(0.5s);
+  					.iPhoneWrap img {
+  						min-height: 343px;
+  						width: 84%;
+  						left: 8%;
+  						//@include transition(0.5s);
+  					}
+  					.screens {
+  						width: inherit;
+  						height: inherit;
+
+  						.article{
+  							@include animation(Appear 0.5s);
+  							@include animation-delay(3s);
+  							@include animation-fill-mode(forwards);
+  						}
+  						.category{
+  							@include animation(Appear 0.5s);
+  							@include animation-delay(6s);
+  							@include animation-fill-mode(forwards);
+  						}
+  						.ranking{
+  							@include animation(Appear 0.5s);
+  							@include animation-delay(9s);
+  							@include animation-fill-mode(forwards);
+  						}
+  					}
+  				}
+  				.DownloadLink {
+  					margin-top: 20px;
+  					@include transition(0.5s);
+  				}
+  				.CloseBigLP {
+  					text-align: center;
+  					font-size: 20px;
+  					line-height: 50px;
+  					font-family: $Avenir;
+  					font-weight: 500;
+  					color: white;
+  					cursor: pointer;
+  					z-index: 1000000;
+  				}
+  			}
+  			.TextLine {
+  				h3 {
+  					display: none;
+  				}
+  				p {
+  					opacity: 1;
+  				}
+  			}
+  			.Background{
+  				.image {
+  					.overlay{opacity: 0.75;}
+  				}
+  			}
+  		}
+
+  	}
+  	//On Minimize
+  	&.Minimize {
+  		width: 38px;
+  		height: 100%;
+  		@include transition($medieumAnim);
+  		.LPHeader {
+  			@include background-image( linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.0) 100%));
+  			height: 100%;
+  			.Close {
+  				@include transform(rotate(180deg));
+  				@include transition($medieumAnim);
+  				position: absolute;
+  				top: 50%;
+  				left: 50%;
+  				margin-left: -4px;
+  			}
+  			svg path {
+  				fill: black;
+  				@include transition($medieumAnim);
+  			}
+  		}
+  		.LPContent, .LPSocial, .LandingPage {
+  			opacity: 0;
+  			@include transition($medieumAnim);
+  		}
+
+  	}
+  }
+  .WebComponent {
+  	height: 100%;
+  	z-index: 0;
+  	width: 100%;
+  	iframe {
+  		width: inherit;
+  		height: 100%;
+  		border: none;
+  	}
+  }
+
+  //Responsive
+  @media screen and (max-height: 750px) {
+  	.LPComponent{
+  		width: 280px;
+  		.LPContent{
+  			height: 280px;
+  		}
+  		.LandingPage {
+  			@include flex(1.5);
+  			.HideGradient {
+  				height: 75px;
+  				top: -75px;
+  			}
+  		}
+  	}
+  	.LPComponent.BigLP .LandingPage .LandingPageInner .iPhone {
+  		height: 280px;
+  		.iPhoneWrap img {
+  			min-height: 200px;
+  			width: 70%;
+  			left: 15%;
+  		}
+  	}
+  	.LPComponent.BigLP .LandingPage .LandingPageInner .CloseBigLP {
+  		line-height: 20px;
+
+  	}
+  	.LPComponent.BigLP .LandingPage .Logo {
+  		height: 70px !important;
+  	}
+  }
+  @media screen and (max-width: 1400px) {
+  	.LPComponent{
+  		width: 270px;
+  	}
+  }
+  @media screen and (max-height: 670px) {
+  	.LPComponent{
+  		.LandingPage {
+  			@include flex(0.8);
+  			.HideGradient {
+  				height: 50px;
+  				top: -50px;
+  			}
+  			.TextLine {
+  				h3 {
+  					color: white !important;
+  					line-height: 0 !important;
+  				}
+  			}
+  		}
+
+  	}
   }
 }
+.MobileDevice {
+  .WebLP {
+  	width: 100%;
+  	height: 100%;
+  	@include display(flex);
+  	overflow-x: hidden;
+  }
+  .LPComponent {
+  	width: 100%;
+  	height: auto;
+  	@include display(flex);
+  	@include flex(none);
+  	@include flex-direction(column);
+  	@include transition($medieumAnim);
+  	background: white;
+  	position: relative;
+  	box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+  	z-index:2;
+  	//overflow: hidden;
+  	//When scrolled
+  	//Fixed
+  	.LPHeader {
+  		width: inherit;
+  		height: 50px;
+  		@include background-image( linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%));
+  		position: absolute;
+  		z-index: 1000;
+  		padding: 0px $Border;
+  		.HeaderLogo {
+  			float: left;
+  			svg {
+  				height: 32px;
+  				margin-top: ($Header - $HeaderLogo)/2;
+  				path {
+  					fill: white;
+  					@include transition($shortAnim);
+  				}
+  			}
+  		}
+  	}
+  	//Fix End
+  	//Flex
+  	.LPContent {
+  		@include flex(initial);
+  		@include display(flex);
+  		@include flex-direction(column);
+  		min-height: 300px;
+  		opacity: 1;
+  		//height: 300px;
+  		width: 100%;
+  		z-index: 2;
+  		position: relative;
+  		padding: 0px $Border $Border $Border;
+  		background: white;
+  		box-shadow: 0px 1px 10px rgba(0, 0, 0, 0);
+  		@include transition($medieumAnim);
+  		overflow: hidden;
+  		.ThumbnailWrap {
+  			@include display(flex);
+  			@include transition($medieumAnim);
+  			@include flex(none);
+  			@include align-items(center);
+  			height: 200px;
+  			width: 120%;
+  			margin-left: -10%;
+  			margin-top: -20px;
+  			@include transform( rotate(6deg));
+  			-webkit-backface-visibility: hidden;
+  			overflow: hidden;
+  			box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+  			z-index: 2;
+  				.ThumbnailInner {
+  				height: 120%;
+  				width: 120%;
+  				margin: 0 auto;
+  				background-size: 110%;
+  				background-position: center 15px;
+  				background-repeat: no-repeat;
+  				@include transform( rotate(-6deg));
+  				-webkit-backface-visibility: hidden;
+  			}
+  		}
+  		.PressIcon {
+  			width: 50px;
+  			height: 50px;
+  			@include flex(none);
+  			//background: black;
+  			border-radius: 3px;
+  			margin-top: -40px;
+  			overflow: hidden;
+  			box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  			z-index: 3;
+  			position: relative;
+  			@include transition($medieumAnim);
+  			.Icon {
+  				width: 100%;
+  				height: 100%;
+  				background-repeat: no-repeat;
+  				background-size: cover
+  			}
+  		}
+  		.PressName {
+  			@include flex(none);
+  			font-family: $Avenir;
+  			font-weight: 500;
+  			font-size: 15px;
+  			color: rgba(0, 0, 0, 0.75);
+  			line-height: 20px;
+  			margin-top: 7px;
+  			text-transform: uppercase;
+  		}
+  		.ArticleTitle {
+  			@include flex(none);
+  			font-family: "Helvetica";
+  			font-weight: 700;
+  			font-size: 19px;
+  			color: rgba(0, 0, 0, 0.9);
+  			margin-top: 7px;
+  			line-height: 22px;
+  			min-height: 47px;
+  			overflow: hidden
 
-/* ネスト */
-body {
-  margin: 0 auto;
-  width: 1000px;
+  		}
+  		.ArticleMetadata {
+  			@include flex(none);
+  			height: 16px;
+  			font-family: $Avenir;
+  			font-size: 14px;
+  			margin-top: 5px;
+  			//line-height: 30px;
+  			color: $MetadataBlue;
+  			position: relative;
+  			.CategoryClass {
+  				text-align: right;
+  				text-transform: uppercase;
+  				font-weight: 500;
+  			}
+  			.ArticleDate {
+  				text-align: left;
+  				float: left;
+  			}
+  		}
+  	}
+  	.LPSocial {
+  		position: relative;
+  		width: inherit;
+  		padding: 0 $Border $Border $Border;
+  		@include flex(1);
+  		opacity: 1;
+  		//@include transition($medieumAnim);
+  		@include display(flex);
+  		@include flex-direction(column);
+  		//overflow: hidden;
+  			.Share {
+  				@include flex(none);
+  				@include display(flex);
+  				@include flex-direction(row);
+  				height: 40px;
+  				width: 100%;
+  				margin: 5px 0px;
+  			}
+  			.button {
+  				border-radius:100px;
+  				svg path{
+  					fill: white;
+  				}
+  			}
+  			.ReadArticle {
+  				padding: 0px 4px;
+  				vertical-align:top;
+  				background: white;
+  				border: 1px solid #37adff;
+  				@include flex(1);
+  				text-align: center;
+  				color: #37adff;
+  				font-family: $Avenir;
+  				font-weight: 600;
+  				line-height: 38px;
+  				text-decoration: none;
+  				margin-right: 12px;
+  			}
+  			.Pick {
+  				padding: 0px 6px;
+  				vertical-align:top;
+  				background: #37adff;
+  				@include display(flex);
+  				@include flex-direction(row);
+  				@include flex(1.5);
+  				.PickText {
+  					@include flex(1);
+  					text-align: center;
+  					display: inline-block;
+  					vertical-align: top;
+  					font-size: 16px;
+  					svg {
+  						display: inline-block;
+  						height: 20px;
+  						margin-top: 10px;
+  						margin-right: 6px;
+  						vertical-align:top;
+  						path {
+  							fill: white;
+  						}
+  					}
+  					span {
+  						display: inline-block;
+  						vertical-align:top;
+  						color: white;
+  						font-family: $Avenir;
+  						font-weight: 600;
+  						line-height: 40px;
 
-  header {
-    h1 {
-      /* mixinを使う */
-      @include logofont;
-      /* 変数を使う*/
-      border-bottom: 1px dotted $black;
-    }
+
+  					}
+  				}
+  				.PickCount {
+  					@include flex(none);
+  					height: 28px;
+  					margin: 6px 0px;
+  					background: white;
+  					border-radius: 100px;
+  					font-size: 16px;
+  					span {
+  						font-family: $Avenir;
+  						text-align: center;
+  						font-weight: 600;
+  						line-height: 28px;
+  						color: #37adff;
+  						min-width: 25px;
+  						padding: 0 8px;
+  						display: block;
+  					}
+  				}
+  			}
+
+  			.FacebookShare {
+  				background: #3b5998;
+  				svg {
+  					height: 20px;
+  				}
+  			}
+  			.TwitterShare {
+  				background: #00aced;
+  				svg {
+  					height: 16px;
+  				}
+  			}
+  		.PickHeads {
+  			@include flex(none);
+  			margin-top: 15px;
+  			overflow: hidden;
+  			margin-bottom: -16px;
+  			width: 100%;
+  			z-index: 100;
+  			position: relative;
+  			.FixedElement {
+  				position: relative;
+  			}
+  			.ScrollGraduation {
+  				position: absolute;
+  				width: 100%;
+  				.Visible {
+  					opacity: 1 !important;
+  				}
+  				div {
+  					height: 40px;
+  					width: 40px;
+  					@include transition($shortAnim);
+
+  				}
+  				.left {
+  					@include background-image(linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%));
+  					position: absolute;
+  					left: 0;
+  					opacity: 0;
+
+  				}
+  				.right {
+  					@include background-image(linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%));
+  					position: absolute;
+  					right: 0;
+  					opacity: 1;
+  				}
+  			}
+  			.Headinglist{
+  				width: 5000px;
+  				height: 40px;
+  			}
+  			.Pickers{
+  				display: inline-block;
+  				float: left;
+  				height: 40px;
+  				width: 40px;
+  				float: left;
+  				background-size: cover;
+  				border-radius: 100%;
+  				//float: left;
+  				margin-right: 8px;
+  				&:last-child {
+  					margin-right: 0px !important;
+  				}
+  				&:first-child {
+    			  display: none;
+          }
+  			}
+  		}
+  		.PickHeads::-webkit-scrollbar {
+  			width: 0 !important;
+  		}
+  		.CommentThread {
+  			margin-top: 30px;
+  			//margin-bottom: 40px;
+  			width: 100%;
+  			position: relative;
+  			z-index: 2;
+  			.Comment {
+  				display: inline-block;
+  				width: inherit;
+  				min-height: 30px;
+  				height: auto;
+  				position: relative;
+  				margin-bottom: 5px;
+  				&:first-child {
+    			  display: none;
+          }
+  				.Picture{
+  					display: inline-block;
+  					width: 35px;
+  					height: 35px;
+  					background-position:left top;
+  					background-size: 100%;
+  					border-radius: 100%;
+  					vertical-align: top;
+  					float: left;
+  					position: absolute;
+  				}
+  				.TextContent {
+  					display: inline-block;
+  					vertical-align: top;
+  					height: inherit;
+  					margin-left: 45px;
+  					float: right;
+  					//position: absolute;
+  					.NameTitle {
+  						font-family: $Avenir;
+  						font-weight: 600;
+  						font-size: 14px;
+  						color: #004b7f;
+  						line-height: 15px;
+  						float: left;
+  					}
+  					.CommentDate {
+  						font-family: $Avenir;
+  						font-weight: 500;
+  						font-size: 14px;
+  						color: #848484;
+  						line-height: 15px;
+  						right: 0;
+  						position: absolute;
+  					}
+  					.CommentContent{
+  						font-family: $Helvetica;
+  						font-size: 14px;
+  						float: left;
+  						margin-top: 2px;
+              width: 100%;
+              min-height: 30px;
+  					}
+  				}
+  			}
+  			.GradientHide {
+  				width: 100%;
+  				height:50px;
+  				position: absolute;
+  				bottom: 10px;
+  				@include background-image(linear-gradient(RGBA(255,255,255,0) 0%, RGBA(255,255,255,1) 100%));
+  				z-index: 1;
+  			}
+  		}
+  		.ViewOnPlayer {
+  			text-align: center;
+  			line-height: 50px;
+  			font-family: $Avenir;
+  			font-weight: 500;
+  			color: $MetadataBlue;
+  			//position: absolute;
+
+  		}
+  	}
+  	//End Flex
+  }
+  .OrientWrong {
+  	display: none;
+  	position: fixed;
+  	width: 100%;
+  	height: 100%;
+  	z-index: -100;
+  	svg {
+  		position: absolute;
+  		top: 50%;
+  		margin-top: -30px;
+  		width: 50px;
+  		left: 50%;
+  		margin-left: -25px;
+  	}
+  }
+  .Landscape {
+  	.OrientWrong {
+  		display: block;
+  	}
+  	.WebLP {
+  		display: none;
+  	}
+  }
+  .NoPicker {
+    .PickHeads, .CommentThread {display: none;}
+    .ViewOnPlayer {margin-top: 25px !important;}
   }
 
-  div {
-    margin: 0 0 20px;
-  }
+}
+//Animation Keyframes
+@include keyframes(GradientOne) {
+	0% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@include keyframes(GradientTwo) {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@include keyframes(GradientThree) {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@include keyframes(GradientFour) {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@include keyframes(ImageTransition) {
+	0% {
+		opacity: 0;
+		@include transform(translateX(0));
+	}
+	5% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	55% {
+		opacity: 0;
+		@include transform(translateX(-15%));
+	}
+}
+@include keyframes(FromBottom) {
+	from {
+		@include transform(translateY(25px)scale(0.9));
+		opacity: 0;
+	}
+	to {
+		@include transform(translateY(0px)scale(1));
+		opacity: 1;
 
-  footer {
-    border-top: 1px solid $gray;
+	}
+}
+@include keyframes(FromTop) {
+	from {
+		@include transform(translateY(-25px)scale(0.9));
+		opacity: 0;
+	}
+	to {
+		@include transform(translateY(0px)scale(1));
+		opacity: 1;
 
-    address {
-      font-size: 90%;
-    }
-  }
+	}
+}
+@include keyframes(FromCenter) {
+	from {
+		@include transform(translateY(0px)scale(0));
+		opacity: 0;
+	}
+	to {
+		@include transform(translateY(0px)scale(1));
+		opacity: 1;
+
+	}
+}
+@include keyframes(Appear) {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
