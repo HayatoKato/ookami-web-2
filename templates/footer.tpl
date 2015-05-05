@@ -19,12 +19,10 @@
 		<script src="script/common.js"></script>
 
 		<!-- Add class for Desktop -->
-		{if !$isMobile}
-			<script>
-				$(function(){
-					$('html').addClass('DesktopDevice');
-				});
-			</script>
+		{if $isMobile}
+			<script>$(function(){ $('html').addClass('MobileDevice'); });</script>
+		{else}
+			<script>$(function(){ $('html').addClass('DesktopDevice'); });</script>
 		{/if}
 	<body>
 </html>

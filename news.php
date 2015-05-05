@@ -24,5 +24,10 @@
 	$smarty->assign('isMobile', $mobileDetect->isMobile());
 	$smarty->assign('dateFormat', DATE_FORMAT);
 	$smarty->assign("contents", $newsData); 
-	$smarty->display('pc/news-detail.tpl');
+
+	if ($mobileDetect->isMobile()) {
+		$smarty->display('sp/news-detail.tpl');
+	} else {
+		$smarty->display('pc/news-detail.tpl');
+	}
 ?>
